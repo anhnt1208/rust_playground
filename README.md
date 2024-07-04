@@ -45,6 +45,7 @@ $ docker run -it --rm --name rust_playground rust_playground
 
 # Reference
 
-- [Easy Rust](https://dhghomon.github.io/easy_rust/Chapter_1.html) (recommended)
+- [[Rust cheat sheet](https://cheats.rs/)]
+- [Easy Rust](https://dhghomon.github.io/easy_rust/Chapter_1.html)
 - [Tour of Rust](https://tourofrust.com/index.html)
 - [The Cargo Book](https://doc.rust-lang.org/cargo/index.html)
