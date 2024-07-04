@@ -1,6 +1,16 @@
+# Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Getting Started](#getting-started)
+  - [Local Installation](#local-installation)
+  - [Dockerize Rust](#dockerize-rust)
+  - [Recommended VS Code extensions](#recommended-vs-code-extensions)
+- [Reference](#reference)
+
 # Introduction
 
-Repository for Rust playground
+Rust playground
 
 # Getting Started
 
