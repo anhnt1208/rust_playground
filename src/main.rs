@@ -1,42 +1,37 @@
-use std::time;
+// Write function main that will output the result of finaboration
+fn main() {
+    let n: u32 = env::args().nth(1).unwrap().parse().unwrap();
 
-fn vec_allocation(reserved: bool) {
-  let mut vec: Vec<String>;
-  let num: usize = 256;
-  if reserved {
-    vec = Vec::with_capacity(num);
-  } else {
-    vec = Vec::new();
-  }
-  for _i in 0..num {
-    vec.push(_i.to_string());
-  }
-  return;
+    if n == 0 || n == 1 {
+        println!("{}", n);
+    } else {
+        let mut fib_prev = 0;
+        let mut fib_curr = 1;
+        let mut fib_next = 0;
+
+        for _ in 2..=n {
+            fib_next = fib_prev + fib_curr;
+            fib_prev = fib_curr;
+            fib_curr = fib_next;
+        }
+
+        println!("{}", fib_curr);
+    }
 }
 
-fn fib(n: i32) -> i64 {
-    match n {
-      1 | 2 => 1, 
-      _ => fib(n - 1) + fib(n - 2)
+// Write testcases for the main function
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_finaboration() {
+        assert_eq!(finaboration(0), 0);
+        assert_eq!(finaboration(1), 1);
+        assert_eq!(finaboration(2), 1);
+        assert_eq!(finaboration(3), 2);
+        assert_eq!(finaboration(4), 3);
+        assert_eq!(finaboration(5), 5);
+        assert_eq!(finaboration(10), 55);
     }
-  }
-  
-fn main() {
-  let test_times: i32 = 50;
-  let start: time::Instant = time::Instant::now();
-  for _i in 0..test_times {
-    vec_allocation(true);
-  }
-  let elapsed_time: f64 = start.elapsed().as_secs_f64();
-  let formated_time: String = format!("{:.9}", elapsed_time);
-  println!("Total time spent: {} s", formated_time);
-
-  let start: time::Instant = time::Instant::now();
-  for _i in 0..test_times {
-    vec_allocation(false);
-  }
-  let elapsed_time: f64 = start.elapsed().as_secs_f64();
-  let formated_time: String = format!("{:.9}", elapsed_time);
-  println!("Total time spent: {} s", formated_time);
-
 }

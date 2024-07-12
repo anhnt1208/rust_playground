@@ -1,0 +1,33 @@
+name: Docker Test
+on:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  filter:
+    runs-on: ubuntu-latest
+    outputs:
+      dockerfiles: ${{ steps.filter.outputs.dockerfiles_files }}
+      dockerfiles_changed: ${{ steps.filter.outputs.dockerfiles }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          list-files: json
+          filters: |
+            dockerfiles:
+              - "**/Dockerfile*"
+
+  dockerlint:
+    runs-on: ubuntu-latest
+    needs: filter
+    if: needs.filter.outputs.dockerfiles_changed == 'true'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: jbergstroem/hadolint-gh-action@v1
+        with:
+          dockerfile: ${{ join(needs.filter.outputs.dockerfiles, ' ') }}
