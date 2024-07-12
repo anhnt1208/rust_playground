@@ -22,6 +22,18 @@ jobs:
             dockerfiles:
               - "**/Dockerfile*"
 
+  get-binary-step-matrix:
+    runs-on: ubuntu-latest
+    needs: filter
+    steps:
+      - uses: actions/checkout@v3
+      - id: read-binary-matrix
+        uses: ActionsTools/read-json-action@main
+        with:
+          file_path: ".github/binary-matrix.json"
+    outputs:
+      matrix: ${{ steps.read-binary-matrix.outputs.binary-steps-matrix }}
+
   dockerlint:
     runs-on: ubuntu-latest
     needs: filter
@@ -31,3 +43,18 @@ jobs:
       - uses: jbergstroem/hadolint-gh-action@v1
         with:
           dockerfile: ${{ join(fromJson(needs.filter.outputs.dockerfiles), ' ') }}
+
+  docker-tests:
+    needs: ["filter", "get-binary-step-matrix"]
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.get-binary-step-matrix.outputs.matrix) }}
+    permissions:
+      id-token: write
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Debug
+        run: |
+          echo '${{ matrix.dockerfile_path }}'
+        shell: bash
