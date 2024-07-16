@@ -58,3 +58,7 @@ jobs:
         run: |
           echo '${{ matrix.dockerfile_path }}'
         shell: bash
+      - name: Check Docker
+        uses: ./.github/actions/build-and-push/
+        with:
+          push:
