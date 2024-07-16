@@ -12,4 +12,4 @@ runs:
     - name: Debug
       shell: bash
       run: |
-        echo [${{ inputs.push || "true" }}]
+        echo [${{ inputs.push || 'true' }}]
