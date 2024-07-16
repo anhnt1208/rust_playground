@@ -61,5 +61,3 @@ jobs:
         shell: bash
       - name: Check Docker
         uses: ./.github/actions/build-and-push/
-        with:
-          push:
