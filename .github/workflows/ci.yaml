@@ -62,4 +62,4 @@ jobs:
       - name: Check Docker
         uses: ./.github/actions/build-and-push/
         with:
-          push:
+          push: false
