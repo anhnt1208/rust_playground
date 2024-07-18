@@ -39,7 +39,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        services: ${{ fromJson(needs.get-binary-step-matrix.outputs.matrix) }}
+        component: ${{ fromJson(needs.get-binary-step-matrix.outputs.matrix) }}
         exclude:
           - binary_name: resource-estimation
     runs-on: ubuntu-latest
@@ -47,5 +47,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: Debug
         run: |
-          echo '${{ matrix.services.dockerfile_path }}'
+          echo '${{ matrix.component.dockerfile_path }}'
         shell: bash
