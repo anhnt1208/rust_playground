@@ -32,7 +32,7 @@ jobs:
         with:
           file_path: ".github/binary-matrix.json"
     outputs:
-      matrix: ${{ steps.read-binary-matrix.outputs.binary-steps-matrix }}
+      matrix: ${{ steps.read-binary-matrix.outputs.components }}
 
   docker-tests:
     needs: ["filter", "get-binary-step-matrix"]
@@ -40,12 +40,13 @@ jobs:
       fail-fast: false
       matrix:
         component: ${{ fromJson(needs.get-binary-step-matrix.outputs.matrix) }}
-        exclude:
-          - binary_name: resource-estimation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        if: ${{ matrix.component.enabled && contains(needs.filter.outputs.dockerfiles, matrix.component.dockerfile_path) }}
+
       - name: Debug
+        if: ${{ matrix.component.enabled && contains(needs.filter.outputs.dockerfiles, matrix.component.dockerfile_path) }}
         run: |
           echo '${{ matrix.component.dockerfile_path }}'
         shell: bash

@@ -1,44 +1,29 @@
 {
-  "binary-steps-matrix": [
+  "components": [
     {
-      "binary_name": "curia-stream",
-      "dockerfile_path": "Dockerfile",
-      "name": "workflows/curia-stream"
+      "name": "tenant_management_service",
+      "component_name": "tm-server",
+      "dockerfile_path": "services/tenant-management/backend/server/Dockerfile",
+      "helm_chart_path": "",
+      "enabled": true
     },
     {
-      "binary_name": "resource-estimation",
-      "dockerfile_path": "Dockerfile.local",
-      "name": "workflows/resource-estimation"
+      "name": "aggregation_service",
+      "component_name": "aggregation-server",
+      "dockerfile_path": "services/aggregation/backend/server/Dockerfile",
+      "enabled": true
     },
     {
-      "binary_name": "multi-image-prepare",
-      "dockerfile_path": "workflows/steps/multi-image-prepare/Dockerfile",
-      "name": "workflows/multi-image-prepare"
+      "name": "resource_reporter",
+      "component_name": "resource-reporter",
+      "dockerfile_path": "services/resource-reporter/Dockerfile",
+      "enabled": false
     },
     {
-      "binary_name": "request-state-reporter",
-      "dockerfile_path": "workflows/steps/request-state-reporter/Dockerfile",
-      "name": "workflows/request-state-reporter"
-    },
-    {
-      "binary_name": "deep-feature-v2",
-      "dockerfile_path": "workflows/steps/deep-feature-v2/Dockerfile",
-      "name": "workflows/deep-feature-v2"
-    },
-    {
-      "binary_name": "largest-dimension-size",
-      "dockerfile_path": "workflows/steps/largest-dimension-size/Dockerfile",
-      "name": "workflows/largest-dimension-size"
-    },
-    {
-      "binary_name": "welding-symbol-detection",
-      "dockerfile_path": "workflows/steps/welding-symbol-detection/Dockerfile",
-      "name": "workflows/welding-symbol-detection"
-    },
-    {
-      "binary_name": "image-resize",
-      "dockerfile_path": "workflows/steps/image-resize/Dockerfile",
-      "name": "workflows/image-resize"
+      "name": "cluster_state_snapshotter",
+      "component_name": "cluster-state-snapshotter",
+      "dockerfile_path": "services/cluster-state-snapshotter/Dockerfile",
+      "enabled": false
     }
   ]
 }
