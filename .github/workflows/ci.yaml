@@ -32,7 +32,7 @@ jobs:
         with:
           file_path: ".github/binary-matrix.json"
     outputs:
-      matrix: ${{ steps.read-binary-matrix.outputs.binary-steps-matrix.include }}
+      matrix: ${{ steps.read-binary-matrix.outputs.binary-steps-matrix }}
 
   docker-tests:
     needs: ["filter", "get-binary-step-matrix"]
