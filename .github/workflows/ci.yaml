@@ -40,11 +40,10 @@ jobs:
       fail-fast: false
       matrix:
         component: ${{ fromJson(needs.get-binary-step-matrix.outputs.matrix) }}
+        exclude:
+          - component: tenant_management_service
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        if: ${{ matrix.component.enabled && contains(needs.filter.outputs.dockerfiles, matrix.component.dockerfile_path) }}
-
       - name: Debug
         if: ${{ matrix.component.enabled && contains(needs.filter.outputs.dockerfiles, matrix.component.dockerfile_path) }}
         run: |
