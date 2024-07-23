@@ -23,7 +23,7 @@
       "name": "cluster_state_snapshotter",
       "component_name": "cluster-state-snapshotter",
       "dockerfile_path": "services/cluster-state-snapshotter/Dockerfile",
-      "prod_released": false
+      "prod_released": true
     }
   ]
 }
