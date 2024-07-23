@@ -28,17 +28,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: read-components-matrix
-        uses: ActionsTools/read-json-action@main
-        with:
-          file_path: ".github/components-payload.json"
-      - id: filter-components
         run: |
-          filtered-components="echo '${{ steps.read-components-matrix.outputs.components }}' | jq '.[] | select(.prod_released == true)' "
+          filtered-components="cat ".github/components-payload.json" | jq -c '.components[] | select(.prod_released == true)' "
           echo $filtered-components
           echo "components=$filtered-components" >> $GITHUB_OUTPUT
         shell: bash
     outputs:
-      components: ${{ steps.filter-components.outputs.components }}
+      components: ${{ steps.read-components-matrix.outputs.components }}
 
   docker-tests:
     needs: ["filter", "get-components"]
