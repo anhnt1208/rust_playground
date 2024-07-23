@@ -13,7 +13,7 @@ jobs:
       tenant_management_service: ${{ steps.filter.outputs.tenant_management_service }}
       aggregation_service: ${{ steps.filter.outputs.aggregation_service }}
       resource_reporter: ${{ steps.filter.outputs.resource_reporter }}
-      cluster-state_snapshotter: ${{ steps.filter.outputs.cluster_state_snapshotter }}
+      cluster_state_snapshotter: ${{ steps.filter.outputs.cluster_state_snapshotter }}
     steps:
       - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v2
@@ -42,7 +42,7 @@ jobs:
           file_path: ".github/components-payload.json"
       - id: filter-components
         run: |
-          FILTERED_COMPONENTS="$(cat .github/components-payload.json | jq -c '.components | map(select(.prod_released == true))' )"
+          FILTERED_COMPONENTS="$( jq -c '.components | map(select(.prod_released == true))' .github/components-payload.json )"
           echo "$FILTERED_COMPONENTS"
           echo "components=${FILTERED_COMPONENTS}" >> $GITHUB_OUTPUT
     outputs:
