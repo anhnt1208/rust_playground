@@ -31,7 +31,7 @@ jobs:
         shell: bash
         run: |
           cat .github/components-payload.json
-          filtered-components="$(cat .github/components-payload.json | jq -c '.components[] | select(.prod_released == true)' )"
+          filtered-components="$(cat .github/components-payload.json)"
           echo "::set-output name=components::$filtered-components"
     outputs:
       components: ${{ steps.read-components-matrix.outputs.components }}
