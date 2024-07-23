@@ -32,10 +32,9 @@ jobs:
         with:
           file_path: ".github/components-payload.json"
       - id: filter-components
-        shell: bash
         run: |
-          filtered-components="${{ steps.read-component-payload.outputs.components }}"
-          echo "components=$filtered-components" >> $GITHUB_OUTPUT
+          FILTERED_COMPONENTS="${{ steps.read-component-payload.outputs.components }}"
+          echo "components=${FILTERED_COMPONENTS}" >> $GITHUB_OUTPUT
     outputs:
       components: ${{ steps.filter-components.outputs.components }}
 
