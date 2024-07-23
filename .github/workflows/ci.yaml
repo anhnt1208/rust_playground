@@ -33,7 +33,8 @@ jobs:
           file_path: ".github/components-payload.json"
       - id: filter-components
         run: |
-          FILTERED_COMPONENTS="$(cat .github/components-payload.json | jq '.components[] | select(.prod_released == true)' )"
+          set -eux
+          FILTERED_COMPONENTS=$(cat .github/components-payload.json | jq '.components[] | select(.prod_released == true)' )
           echo "$FILTERED_COMPONENTS"
           echo "components=$FILTERED_COMPONENTS" >> $GITHUB_OUTPUT
     outputs:
