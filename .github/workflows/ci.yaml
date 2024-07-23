@@ -10,17 +10,26 @@ jobs:
   filter:
     runs-on: ubuntu-latest
     outputs:
-      dockerfiles: ${{ steps.filter.outputs.dockerfiles_files }}
-      dockerfiles_changed: ${{ steps.filter.outputs.dockerfiles }}
+      tenant_management_service: ${{ steps.filter.outputs.tenant_management_service }}
+      aggregation_service: ${{ steps.filter.outputs.aggregation_service }}
+      resource_reporter: ${{ steps.filter.outputs.resource_reporter }}
+      cluster_state_snapshotter: ${{ steps.filter.outputs.cluster_state_snapshotter }}
     steps:
       - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v2
         id: filter
         with:
-          list-files: json
           filters: |
-            dockerfiles:
-              - "**/Dockerfile*"
+            tenant_management_service:
+              - 'playground/method_vs_macro/Cargo.toml'
+            aggregation_service:
+              - '.github/actions/build-and-push/action.yaml'
+            resource_reporter:
+              - '.github/workflows/ci.yaml'
+              - 'services/resource-reporter/*.toml'
+              - 'services/resource-reporter/Dockerfile'
+            cluster_state_snapshotter:
+              - 'README.md'
 
   get-components:
     runs-on: ubuntu-latest
@@ -48,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Debug
-        if: ${{ matrix.component.enabled && contains(needs.filter.outputs.dockerfiles, matrix.component.dockerfile_path) }}
+        if: needs.filter.outputs[matrix.name] == 'true'
         run: |
           echo '${{ matrix.component.dockerfile_path }}'
         shell: bash
