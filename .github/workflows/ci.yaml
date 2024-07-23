@@ -22,6 +22,7 @@ jobs:
             dockerfiles:
               - "**/Dockerfile*"
 
+  
   get-components:
     runs-on: ubuntu-latest
     needs: filter
@@ -30,11 +31,10 @@ jobs:
       - id: read-components-matrix
         run: |
           filtered-components="$(cat .github/components-payload.json | jq -c '.components[] | select(.prod_released == true)' )"
-          echo $filtered-components
-          echo "components=$filtered-components" >> $GITHUB_OUTPUT
+          echo "::set-output name=components::$filtered-components"
         shell: bash
-    outputs:
-      components: ${{ steps.read-components-matrix.outputs.components }}
+      outputs:
+        components: ${{ steps.read-components-matrix.outputs.components }}
 
   docker-tests:
     needs: ["filter", "get-components"]
