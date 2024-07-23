@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@v3
       - id: read-components-matrix
         run: |
-          filtered-components="cat .github/components-payload.json | jq -c '.components[] | select(.prod_released == true)' "
+          filtered-components="$(cat .github/components-payload.json | jq -c '.components[] | select(.prod_released == true)' )"
           echo $filtered-components
           echo "components=$filtered-components" >> $GITHUB_OUTPUT
         shell: bash
