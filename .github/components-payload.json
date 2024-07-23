@@ -5,25 +5,25 @@
       "component_name": "tm-server",
       "dockerfile_path": "services/tenant-management/backend/server/Dockerfile",
       "helm_chart_path": "",
-      "enabled": true
+      "prod_released": true
     },
     {
       "name": "aggregation_service",
       "component_name": "aggregation-server",
       "dockerfile_path": "services/aggregation/backend/server/Dockerfile",
-      "enabled": true
+      "prod_released": true
     },
     {
       "name": "resource_reporter",
       "component_name": "resource-reporter",
       "dockerfile_path": "services/resource-reporter/Dockerfile",
-      "enabled": false
+      "prod_released": false
     },
     {
       "name": "cluster_state_snapshotter",
       "component_name": "cluster-state-snapshotter",
       "dockerfile_path": "services/cluster-state-snapshotter/Dockerfile",
-      "enabled": false
+      "prod_released": false
     }
   ]
 }
