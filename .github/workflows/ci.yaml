@@ -33,8 +33,7 @@ jobs:
           file_path: ".github/components-payload.json"
       - id: filter-components
         run: |
-          set -eux
-          FILTERED_COMPONENTS=$(cat .github/components-payload.json | jq '.components[] | select(.prod_released == true)' )
+          FILTERED_COMPONENTS=$(cat .github/components-payload.json | jq '[.components[] | select(.prod_released == true)]' )
           echo "$FILTERED_COMPONENTS"
           echo "components=$FILTERED_COMPONENTS" >> $GITHUB_OUTPUT
     outputs:
@@ -53,3 +52,5 @@ jobs:
         run: |
           echo '${{ matrix.component.dockerfile_path }}'
         shell: bash
+
+        cat .github/components-payload.json | jq '.components | map(select(.prod_released == true))'
