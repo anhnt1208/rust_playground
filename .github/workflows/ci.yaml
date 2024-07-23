@@ -52,5 +52,3 @@ jobs:
         run: |
           echo '${{ matrix.component.dockerfile_path }}'
         shell: bash
-
-        cat .github/components-payload.json | jq '.components | map(select(.prod_released == true))'
