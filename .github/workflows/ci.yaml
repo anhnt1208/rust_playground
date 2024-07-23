@@ -13,7 +13,7 @@ jobs:
       tenant_management_service: ${{ steps.filter.outputs.tenant_management_service }}
       aggregation_service: ${{ steps.filter.outputs.aggregation_service }}
       resource_reporter: ${{ steps.filter.outputs.resource_reporter }}
-      cluster_state_snapshotter: ${{ steps.filter.outputs.cluster_state_snapshotter }}
+      cluster-state_snapshotter: ${{ steps.filter.outputs.cluster_state_snapshotter }}
     steps:
       - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v2
