@@ -40,14 +40,10 @@ jobs:
         uses: ActionsTools/read-json-action@main
         with:
           file_path: ".github/components-payload.json"
-      - id: changed-components
-        run: |
-          CHANGED_COMPONENTS="$( echo '${{ toJson(needs.filter.outputs) }}' |  jq -c '. | to_entries |  map(select(.value == "true") | .key) | unique' )"
-          echo ${CHANGED_COMPONENTS}
-          echo "changed_components=${CHANGED_COMPONENTS}" >> $GITHUB_OUTPUT
       - id: filter-components
         run: |
-          FILTERED_COMPONENTS="$( jq -c '.components | map(select(.name == (${{ join(steps.changed-components.outputs.changed_components, ',') }})))' .github/components-payload.json )"
+          CHANGED_COMPONENTS="$( echo '${{ toJson(needs.filter.outputs) }}' |  jq -c '. | to_entries |  map(select(.value == "true") | .key) | unique' )"
+          FILTERED_COMPONENTS="$( jq --argjson names "${CHANGED_COMPONENTS}" -c '.components | map(select(.name as $n | $names | index($n) ))' .github/components-payload.json )"
           echo ${FILTERED_COMPONENTS}
           echo "components=${FILTERED_COMPONENTS}" >> $GITHUB_OUTPUT
     outputs:
