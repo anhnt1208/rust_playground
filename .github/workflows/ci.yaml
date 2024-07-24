@@ -42,7 +42,7 @@ jobs:
           file_path: ".github/components-payload.json"
       - id: filter-components
         run: |
-          CHANGED_COMPONENTS="${{ toJson(needs.filter.outputs) }}"
+          CHANGED_COMPONENTS="$( echo "${{ toJson(needs.filter.outputs) }}" |  jq -c '. | to_entries |  map(select(.value == true) | .key) )" 
           FILTERED_COMPONENTS="$( jq -c '.components | map(select(.prod_released == true))' .github/components-payload.json )"
           echo "$CHANGED_COMPONENTS"
           echo "components=${FILTERED_COMPONENTS}" >> $GITHUB_OUTPUT
