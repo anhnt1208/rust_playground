@@ -1,0 +1,29 @@
+{
+  "components": [
+    {
+      "name": "tenant_management_service",
+      "component_name": "tm-server",
+      "dockerfile_path": "services/tenant-management/backend/server/Dockerfile",
+      "helm_chart_path": "",
+      "prod_released": true
+    },
+    {
+      "name": "aggregation_service",
+      "component_name": "aggregation-server",
+      "dockerfile_path": "services/aggregation/backend/server/Dockerfile",
+      "prod_released": true
+    },
+    {
+      "name": "resource_reporter",
+      "component_name": "resource-reporter",
+      "dockerfile_path": "services/resource-reporter/Dockerfile",
+      "prod_released": false
+    },
+    {
+      "name": "cluster_state_snapshotter",
+      "component_name": "cluster-state-snapshotter",
+      "dockerfile_path": "services/cluster-state-snapshotter/Dockerfile",
+      "prod_released": true
+    }
+  ]
+}
